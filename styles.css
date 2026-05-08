@@ -392,17 +392,56 @@ mark {
   margin: 24px 0 30px;
 }
 
-.mermaid {
-  background: #f8fbf7;
-  border-radius: 6px;
-  color: #102018;
-  margin: 24px 0 30px;
-  overflow-x: auto;
-  padding: 18px;
+.diagram-wrap {
+  margin: 28px 0 38px;
 }
 
-.mermaid-error {
-  border: 2px solid #d08d6d;
+.diagram-wrap.is-wide {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  width: min(1320px, calc(100vw - 48px));
+}
+
+.diagram-viewport {
+  background:
+    linear-gradient(180deg, rgba(238, 245, 239, 0.06), rgba(238, 245, 239, 0.02)),
+    #0d1510;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  overflow-x: auto;
+  padding: 22px;
+  scrollbar-color: rgba(139, 207, 154, 0.56) rgba(238, 245, 239, 0.08);
+  scrollbar-width: thin;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.diagram-svg {
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  max-width: 100%;
+  width: min(100%, var(--diagram-natural-width, 100%));
+}
+
+.diagram-wrap.is-tall .diagram-svg {
+  max-height: min(820px, 78vh);
+  width: auto;
+}
+
+.diagram-error {
+  border-left: 3px solid var(--accent-3);
+  margin: 24px 0 34px;
+  padding-left: 16px;
+}
+
+.diagram-error pre {
+  margin-bottom: 0;
+}
+
+.diagram-message {
+  color: var(--muted);
+  margin: 0 0 12px;
 }
 
 .markdown-body div:has(> figure) {
@@ -583,9 +622,25 @@ mark {
   }
 
   pre,
-  .mermaid {
+  .diagram-viewport {
     margin-left: -2px;
     margin-right: -2px;
     padding: 15px;
+  }
+
+  .diagram-wrap.is-wide {
+    margin-left: -14px;
+    transform: none;
+    width: calc(100% + 28px);
+  }
+
+  .diagram-wrap.is-wide .diagram-svg {
+    max-width: none;
+    width: min(var(--diagram-natural-width, 760px), 980px);
+  }
+
+  .diagram-wrap.is-tall .diagram-svg {
+    max-height: none;
+    width: min(100%, var(--diagram-natural-width, 100%));
   }
 }

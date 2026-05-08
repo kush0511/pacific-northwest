@@ -5,19 +5,52 @@ const ZERO_WIDTH_PREFIX = /^[\u200B\u200C\u200D\u200E\u200F\uFEFF]+/;
 
 const markdown = createMarkdownRenderer();
 
-mermaid.initialize({
+const MERMAID_CONFIG = {
   startOnLoad: false,
+  securityLevel: "strict",
+  suppressErrorRendering: true,
   theme: "base",
+  flowchart: {
+    curve: "basis",
+    htmlLabels: true,
+    padding: 18,
+    useMaxWidth: true
+  },
+  sequence: {
+    mirrorActors: false,
+    rightAngles: false,
+    useMaxWidth: true
+  },
   themeVariables: {
-    background: "#f8fbf7",
-    primaryColor: "#dcefe5",
-    primaryTextColor: "#102018",
-    primaryBorderColor: "#709b87",
-    lineColor: "#507765",
-    secondaryColor: "#f7e7bd",
-    tertiaryColor: "#edf5ef"
+    background: "transparent",
+    mainBkg: "#15221a",
+    primaryColor: "#17251d",
+    primaryTextColor: "#eef7f0",
+    primaryBorderColor: "#8bcf9a",
+    secondaryColor: "#223229",
+    secondaryTextColor: "#eef7f0",
+    secondaryBorderColor: "#7ba98a",
+    tertiaryColor: "#101913",
+    tertiaryTextColor: "#eef7f0",
+    tertiaryBorderColor: "#52685a",
+    clusterBkg: "#101913",
+    clusterBorder: "#52685a",
+    edgeLabelBackground: "#0d1510",
+    lineColor: "#a7c2ad",
+    textColor: "#eef7f0",
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif",
+    noteBkgColor: "#f1d88e",
+    noteTextColor: "#182018",
+    noteBorderColor: "#b79538",
+    actorBkg: "#17251d",
+    actorBorder: "#8bcf9a",
+    actorTextColor: "#eef7f0",
+    signalColor: "#c6dbc9",
+    signalTextColor: "#eef7f0"
   }
-});
+};
+
+mermaid.initialize(MERMAID_CONFIG);
 
 async function renderMarkdownDocument() {
   const source = getMarkdownSource();
@@ -239,23 +272,107 @@ function wrapTables(root) {
 
 async function renderMermaid(root) {
   const blocks = [...root.querySelectorAll("pre > code.language-mermaid")];
-  blocks.forEach((block, index) => {
-    const diagram = document.createElement("div");
-    diagram.className = "mermaid";
-    diagram.id = `mermaid-${index}`;
-    diagram.textContent = block.textContent;
-    block.parentElement.replaceWith(diagram);
-  });
+  if (blocks.length === 0) return;
 
-  if (blocks.length > 0) {
-    try {
-      await mermaid.run({ querySelector: ".mermaid" });
-    } catch {
-      root.querySelectorAll(".mermaid").forEach((diagram) => {
-        diagram.classList.add("mermaid-error");
-      });
-    }
+  if (document.fonts?.ready) {
+    await document.fonts.ready.catch(() => {});
   }
+
+  for (const [index, block] of blocks.entries()) {
+    await renderMermaidBlock(block, index);
+  }
+}
+
+async function renderMermaidBlock(block, index) {
+  const source = block.textContent.trim();
+  const type = detectMermaidType(source);
+  const figure = document.createElement("figure");
+  const viewport = document.createElement("div");
+
+  figure.className = "diagram-wrap";
+  figure.dataset.diagramType = type;
+  figure.setAttribute("aria-label", `${type} diagram`);
+
+  viewport.className = "diagram-viewport";
+  figure.appendChild(viewport);
+  block.parentElement.replaceWith(figure);
+
+  try {
+    const { svg, bindFunctions } = await mermaid.render(`diagram-${Date.now()}-${index}`, source);
+    viewport.innerHTML = svg;
+    bindFunctions?.(viewport);
+    enhanceDiagramSvg(figure);
+  } catch (error) {
+    renderMermaidError(figure, source, error);
+  }
+}
+
+function detectMermaidType(source) {
+  try {
+    return mermaid.detectType(source);
+  } catch {
+    return source.split(/\s+/)[0]?.replace(/[^a-z0-9-]/gi, "").toLowerCase() || "mermaid";
+  }
+}
+
+function enhanceDiagramSvg(figure) {
+  const svg = figure.querySelector("svg");
+  if (!svg) return;
+
+  svg.classList.add("diagram-svg");
+  svg.setAttribute("role", "img");
+  svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+  const box = getSvgBox(svg);
+  if (!box) return;
+
+  svg.removeAttribute("width");
+  svg.removeAttribute("height");
+  figure.style.setProperty("--diagram-natural-width", `${Math.ceil(box.width)}px`);
+  figure.style.setProperty("--diagram-natural-height", `${Math.ceil(box.height)}px`);
+
+  if (box.width > 820 || box.width / box.height > 1.7) {
+    figure.classList.add("is-wide");
+  }
+
+  if (box.height > box.width * 1.2) {
+    figure.classList.add("is-tall");
+  }
+}
+
+function getSvgBox(svg) {
+  const viewBox = svg.getAttribute("viewBox")?.trim().split(/[\s,]+/).map(Number);
+  if (viewBox?.length === 4 && viewBox.every(Number.isFinite) && viewBox[2] > 0 && viewBox[3] > 0) {
+    return { width: viewBox[2], height: viewBox[3] };
+  }
+
+  const width = parseFloat(svg.getAttribute("width"));
+  const height = parseFloat(svg.getAttribute("height"));
+
+  if (Number.isFinite(width) && Number.isFinite(height) && width > 0 && height > 0) {
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    return { width, height };
+  }
+
+  return null;
+}
+
+function renderMermaidError(figure, source, error) {
+  figure.classList.add("diagram-error");
+  figure.removeAttribute("aria-label");
+  figure.innerHTML = "";
+
+  const message = document.createElement("p");
+  message.className = "diagram-message";
+  message.textContent = `Unable to render Mermaid diagram: ${error.message || "invalid syntax"}`;
+
+  const sourceBlock = document.createElement("pre");
+  const code = document.createElement("code");
+  code.className = "language-mermaid";
+  code.textContent = source;
+  sourceBlock.appendChild(code);
+
+  figure.append(message, sourceBlock);
 }
 
 function escapeHtml(value) {
