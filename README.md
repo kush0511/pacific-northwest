@@ -1,6 +1,8 @@
-# Pacific Northwest Autumn Treks
+# Static Markdown Renderer
 
-Static GitHub Pages site for `deep-research-report.md`.
+Static GitHub Pages site that loads a Markdown file in the browser and renders it as a responsive document.
+
+The default source is configured in `index.html` with `data-markdown-source="content.md"`. You can also render another Markdown file with `?source=path/to/file.md`, `?file=path/to/file.md`, or `?md=path/to/file.md`.
 
 ## Local preview
 

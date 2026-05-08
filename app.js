@@ -1,4 +1,5 @@
-const DEFAULT_MARKDOWN_SOURCE = "deep-research-report.md";
+const content = document.querySelector("#content");
+const DEFAULT_MARKDOWN_SOURCE = content.dataset.markdownSource || "README.md";
 const SOURCE_PARAMS = ["source", "file", "md"];
 const ZERO_WIDTH_PREFIX = /^[\u200B\u200C\u200D\u200E\u200F\uFEFF]+/;
 
@@ -18,8 +19,7 @@ mermaid.initialize({
   }
 });
 
-async function renderReport() {
-  const content = document.querySelector("#content");
+async function renderMarkdownDocument() {
   const source = getMarkdownSource();
 
   content.setAttribute("aria-busy", "true");
@@ -112,10 +112,7 @@ function parseFrontMatter(markdownText) {
 }
 
 function enhanceDocument(root, metadata, source) {
-  const title = promoteTitle(root, metadata, source);
-
-  document.title = `${title} | Pacific Northwest Autumn Treks`;
-  document.querySelector("#document-title").textContent = title;
+  document.title = getDocumentTitle(root, metadata, source);
 
   addHeadingIds(root);
   enhanceLinks(root);
@@ -125,16 +122,10 @@ function enhanceDocument(root, metadata, source) {
   wrapTables(root);
 }
 
-function promoteTitle(root, metadata, source) {
+function getDocumentTitle(root, metadata, source) {
   const firstHeading = root.querySelector("h1");
   const headingTitle = firstHeading?.textContent.trim();
-  const title = metadata.title || headingTitle || titleFromSource(source);
-
-  if (firstHeading && (!metadata.title || headingTitle === title)) {
-    firstHeading.remove();
-  }
-
-  return title;
+  return metadata.title || headingTitle || titleFromSource(source);
 }
 
 function titleFromSource(source) {
@@ -277,4 +268,4 @@ function escapeHtml(value) {
   })[character]);
 }
 
-renderReport();
+renderMarkdownDocument();

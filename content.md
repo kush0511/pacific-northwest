@@ -47,7 +47,7 @@ These galleries use locally saved copies of public Wikimedia Commons images so t
 
 #### Pacific Crest Trail Section J
 
-<div class="trek-gallery">
+<div>
   <figure>
     <img src="assets/images/section-j-kendall.jpg" alt="Kendall Katwalk on Pacific Crest Trail Section J in the Alpine Lakes Wilderness" loading="lazy" />
     <figcaption>Kendall Katwalk: the airy Alpine Lakes ridge walking that makes Section J compelling in September. Source: <a href="https://commons.wikimedia.org/wiki/File:Kendall_Katwalk_Trail.jpg">Wikimedia Commons</a>.</figcaption>
@@ -64,7 +64,7 @@ These galleries use locally saved copies of public Wikimedia Commons images so t
 
 #### Pacific Crest Trail Section K
 
-<div class="trek-gallery">
+<div>
   <figure>
     <img src="assets/images/section-k-glacier-peak.jpg" alt="Pacific Crest Trail in Glacier Peak Wilderness on Section K" loading="lazy" />
     <figcaption>Glacier Peak Wilderness terrain: Section K’s bigger, more remote escalation from Section J. Source: <a href="https://commons.wikimedia.org/wiki/File:Pacific_Crest_Trail_-_Glacier_Peak_Wilderness.jpeg">Wikimedia Commons</a>.</figcaption>
@@ -81,7 +81,7 @@ These galleries use locally saved copies of public Wikimedia Commons images so t
 
 #### Wonderland Trail
 
-<div class="trek-gallery">
+<div>
   <figure>
     <img src="assets/images/wonderland-aurora.jpg" alt="Aurora Lake in Klapatche Park on the Wonderland Trail with Mount Rainier" loading="lazy" />
     <figcaption>Aurora Lake in Klapatche Park: west-side meadow and lake scenery with Rainier above. Source: <a href="https://commons.wikimedia.org/wiki/File:Aurora_Lake_is_a_popular_landmark_in_Klapatche_Park_along_the_Wonderland_Trail,_with_views_of_Mount_Rainier._(051e4fca-330d-4607-821a-c22908b92baf).JPG">Wikimedia Commons</a>.</figcaption>
@@ -98,7 +98,7 @@ These galleries use locally saved copies of public Wikimedia Commons images so t
 
 #### Enchanted Valley and O'Neil Pass
 
-<div class="trek-gallery">
+<div>
   <figure>
     <img src="assets/images/enchanted-chalet.jpg" alt="Enchanted Valley Chalet in Olympic National Park" loading="lazy" />
     <figcaption>The Enchanted Valley Chalet anchors the rainforest-valley character of the route. Source: <a href="https://commons.wikimedia.org/wiki/File:Enchanted_Valley_Chalet_2018.jpg">Wikimedia Commons</a>.</figcaption>
@@ -115,7 +115,7 @@ These galleries use locally saved copies of public Wikimedia Commons images so t
 
 #### Timberline Trail
 
-<div class="trek-gallery">
+<div>
   <figure>
     <img src="assets/images/timberline-trail.jpg" alt="Hikers on the Timberline Trail and Pacific Crest Trail near Mount Hood" loading="lazy" />
     <figcaption>Timberline/PCT tread on Mount Hood: compact, exposed, and volcano-forward. Source: <a href="https://commons.wikimedia.org/wiki/File:Hiking_Timberline_Trail,_Pacific_Crest_Trail,_Mt_Hood_National_Forest_(36169868832).jpg">Wikimedia Commons</a>.</figcaption>
@@ -132,7 +132,7 @@ These galleries use locally saved copies of public Wikimedia Commons images so t
 
 #### Three Sisters Loop
 
-<div class="trek-gallery">
+<div>
   <figure>
     <img src="assets/images/three-sisters-moraine.jpg" alt="Moraine Lake below South Sister in the Three Sisters Wilderness" loading="lazy" />
     <figcaption>Moraine Lake below South Sister: open volcanic basin scenery near the loop’s high-value core. Source: <a href="https://commons.wikimedia.org/wiki/File:Moraine_Lake_South_Sister,_Deschutes_National_Forest_(37092586445).jpg">Wikimedia Commons</a>.</figcaption>
@@ -149,7 +149,7 @@ These galleries use locally saved copies of public Wikimedia Commons images so t
 
 #### North Coast Route
 
-<div class="trek-gallery">
+<div>
   <figure>
     <img src="assets/images/north-coast-shi-shi.jpg" alt="Point of Arches at Shi Shi Beach on the Olympic North Coast Route" loading="lazy" />
     <figcaption>Point of Arches at Shi Shi: the north-coast sea-stack drama that becomes more attractive in October. Source: <a href="https://commons.wikimedia.org/wiki/File:Shi_shi_Point_of_Arches32_(22790299769).jpg">Wikimedia Commons</a>.</figcaption>
@@ -166,7 +166,7 @@ These galleries use locally saved copies of public Wikimedia Commons images so t
 
 #### Eagle Cap Grand Loop
 
-<div class="trek-gallery">
+<div>
   <figure>
     <img src="assets/images/eagle-cap-echo-lake.jpg" alt="Echo Lake in the Eagle Cap Wilderness" loading="lazy" />
     <figcaption>Echo Lake: granite-and-lake terrain that differentiates Eagle Cap from the Cascades. Source: <a href="https://commons.wikimedia.org/wiki/File:Echo_Lake_(Eagle_Cap_Wilderness).jpg">Wikimedia Commons</a>.</figcaption>
