@@ -44,7 +44,7 @@ a:hover {
 .site-footer,
 .markdown-body {
   max-width: 1120px;
-  width: calc(100% - 32px);
+  width: min(1120px, calc(100vw - 32px));
   margin: 0 auto;
 }
 
@@ -67,13 +67,6 @@ a:hover {
   margin: 0;
   max-width: 920px;
   overflow-wrap: anywhere;
-}
-
-.dek {
-  color: var(--muted);
-  font-size: clamp(1rem, 2.4vw, 1.25rem);
-  max-width: 720px;
-  margin: 18px 0 0;
 }
 
 .markdown-body {
@@ -127,6 +120,7 @@ a:hover {
 .markdown-body li {
   color: var(--text);
   overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .markdown-body p {
@@ -245,11 +239,24 @@ code {
   .site-header,
   .site-footer,
   .markdown-body {
-    width: calc(100% - 20px);
+    max-width: calc(100vw - 20px);
+    width: calc(100vw - 20px);
   }
 
   .markdown-body {
     padding: 18px 14px 24px;
+  }
+
+  .site-header h1 {
+    font-size: clamp(1.8rem, 9vw, 2.35rem);
+  }
+
+  .markdown-body h1 {
+    font-size: clamp(1.65rem, 8vw, 2.25rem);
+  }
+
+  .markdown-body h2 {
+    font-size: clamp(1.35rem, 6vw, 1.65rem);
   }
 
   .trek-gallery {
@@ -263,6 +270,69 @@ code {
   th,
   td {
     padding: 10px;
+  }
+
+  .table-wrap {
+    border: 0;
+    margin: 18px 0 30px;
+    overflow: visible;
+  }
+
+  table,
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+    min-width: 0;
+    width: 100%;
+  }
+
+  thead {
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+  }
+
+  tbody {
+    display: grid;
+    gap: 14px;
+  }
+
+  tr {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  td {
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    gap: 6px;
+    grid-template-columns: minmax(82px, 30%) minmax(0, 1fr);
+    padding: 11px 12px;
+    overflow-wrap: anywhere;
+  }
+
+  td:last-child {
+    border-bottom: 0;
+  }
+
+  td::before {
+    color: var(--accent-2);
+    content: attr(data-label);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1.35;
+    text-transform: uppercase;
+  }
+
+  td > * {
+    min-width: 0;
   }
 }
 

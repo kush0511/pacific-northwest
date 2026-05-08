@@ -52,6 +52,13 @@ function enhanceLinks(root) {
 
 function wrapTables(root) {
   root.querySelectorAll("table").forEach((table) => {
+    const headers = [...table.querySelectorAll("thead th")].map((header) => header.textContent.trim());
+    table.querySelectorAll("tbody tr").forEach((row) => {
+      [...row.children].forEach((cell, index) => {
+        cell.dataset.label = headers[index] || "";
+      });
+    });
+
     if (table.parentElement.classList.contains("table-wrap")) return;
     const wrapper = document.createElement("div");
     wrapper.className = "table-wrap";
